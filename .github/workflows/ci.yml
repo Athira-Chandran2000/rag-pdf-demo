@@ -33,10 +33,21 @@ jobs:
           # Start uvicorn in background
           GROQ_API_KEY="mock_key" uvicorn app.main:app --host 0.0.0.0 --port 8000 &
           PID=$!
-          sleep 5
-          # Check health endpoint
-          curl -f http://localhost:8000/health || exit 1
+          
+          echo "Waiting for API to start (up to 60s)..."
+          for i in {1..12}; do
+            if curl -s http://localhost:8000/health | grep -q "ready\|loading"; then
+              echo "✅ API is up!"
+              kill $PID
+              exit 0
+            fi
+            echo "Retrying in 5s... ($i/12)"
+            sleep 5
+          done
+          
+          echo "❌ API failed to start within 60s"
           kill $PID
+          exit 1
 
   deploy:
     needs: test
