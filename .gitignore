@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual envs
+.venv/
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Environment variables — NEVER commit secrets
+.env
+*.env
+
+# MLflow local runs and experiment artifacts (generated at runtime)
+experiments/mlruns/
+outputs/
+
+# Test artifacts
+.pytest_cache/
+*.pytest_cache
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Raw PDFs — download on Kaggle, not committed to GitHub
+data/pdfs/
+
+# Large binary index files — tracked via Git LFS, not plain git
+# (The .gitattributes file handles LFS routing)
+data/processed/faiss.index
+data/processed/metadata.db
+data/processed/bm25.pkl
+data/processed/chunks.json
